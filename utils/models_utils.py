@@ -276,8 +276,8 @@ def RNNSpeechModel(input_shape=(99, 40), output_shape=35):
     # keras.backend.squeeze(x, axis)
     x = L.Lambda(lambda q: K.squeeze(q, -1), name='squeeze_last_dim')(x)
 
-    x = L.Bidirectional(L.CuDNNLSTM(64, return_sequences=True))(x)  # [b_s, seq_len, vec_dim]
-    x = L.Bidirectional(L.CuDNNLSTM(64))(x)
+    x = L.Bidirectional(L.LSTM(64, return_sequences=True))(x)  # [b_s, seq_len, vec_dim]
+    x = L.Bidirectional(L.LSTM(64))(x)
 
     x = L.Dense(64, activation='relu')(x)
     x = L.Dropout(0.3)(x)
